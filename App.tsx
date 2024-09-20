@@ -1,118 +1,129 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import {createDrawerNavigator} from '@react-navigation/drawer';
+import Login from './components/Login';
+import Chart from './components/Dashboard';
+import Profile from './components/Profile';
+import Member from './components/Member';
+import Archived from './components/Archived';
+import Project from './components/Project';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {Provider} from 'react-redux';
+import {store} from './Redux/store';
+import Task from './components/Task';
+import Favorite from './components/Favorite';
+import SplashScreen from './components/SplashScreen';
+// const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// function DrawerNavigator() {
+//   return (
+//     <Drawer.Navigator initialRouteName="Chart">
+//       <Drawer.Screen name="Chart" component={Chart} />
+//     </Drawer.Navigator>
+//   );
+// }
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <Provider store={store}>
+      <PaperProvider>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="SplashScreen">
+            <Stack.Screen
+              name="SplashScreen"
+              component={SplashScreen}
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+            />
+            <Stack.Screen
+              name="Project"
+              component={Project}
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+            />
+            <Stack.Screen
+              name="Archived"
+              component={Archived}
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Member"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+              component={Member}
+            />
+            <Stack.Screen
+              name="Chart"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+              component={Chart}
+            />
+            <Stack.Screen
+              name="Profile"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+              component={Profile}
+            />
+            <Stack.Screen
+              name="Task"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+              component={Task}
+            />
+            <Stack.Screen
+              name="Favorite"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animationTypeForReplace: 'push',
+                animation: 'slide_from_right',
+              }}
+              component={Favorite}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </Provider>
   );
 }
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
